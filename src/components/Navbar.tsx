@@ -3,7 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { LogOut, User, LayoutDashboard, Briefcase } from "lucide-react";
+import { LogOut, User, LayoutDashboard, Briefcase, Sun, Moon } from "lucide-react";
 import Button from "./Button";
 import Avatar from "./Avatar";
 
@@ -18,6 +18,24 @@ interface NavbarProps {
 
 export default function Navbar({ user }: NavbarProps) {
   const router = useRouter();
+  const [theme, setTheme] = React.useState<"light" | "dark">("light");
+
+  React.useEffect(() => {
+    const isDark = document.documentElement.classList.contains("dark");
+    setTheme(isDark ? "dark" : "light");
+  }, []);
+
+  const toggleTheme = () => {
+    const nextTheme = theme === "light" ? "dark" : "light";
+    setTheme(nextTheme);
+    if (nextTheme === "dark") {
+      document.documentElement.classList.add("dark");
+      localStorage.setItem("theme", "dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+      localStorage.setItem("theme", "light");
+    }
+  };
 
   const handleLogout = async () => {
     try {
@@ -68,6 +86,17 @@ export default function Navbar({ user }: NavbarProps) {
         </nav>
 
         <div className="flex items-center gap-4">
+          <button
+            onClick={toggleTheme}
+            className="p-2 rounded-xl border border-zinc-200 bg-zinc-50 hover:bg-zinc-100 text-zinc-500 hover:text-zinc-700 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-850 dark:hover:text-zinc-250 transition-colors cursor-pointer flex items-center justify-center"
+            aria-label="Toggle theme"
+          >
+            {theme === "light" ? (
+              <Moon className="w-4 h-4" />
+            ) : (
+              <Sun className="w-4 h-4" />
+            )}
+          </button>
           {user ? (
             <div className="flex items-center gap-3">
               <Link
