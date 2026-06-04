@@ -5,7 +5,6 @@ import Job from "@/models/Job";
 import Company from "@/models/Company";
 import HeroSection from "@/components/HeroSection";
 import JobCard from "@/components/JobCard";
-import CompanyCard from "@/components/CompanyCard";
 import Button from "@/components/Button";
 import { Briefcase, Award, Users, ShieldCheck, Star } from "lucide-react";
 
@@ -16,10 +15,6 @@ export default async function HomePage() {
 
   const featuredJobs = await Job.find({ status: "Active" })
     .populate({ path: "companyId", model: Company, select: "name logo location" })
-    .sort({ createdAt: -1 })
-    .limit(3);
-
-  const featuredCompanies = await Company.find()
     .sort({ createdAt: -1 })
     .limit(3);
 
@@ -119,37 +114,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="py-20 bg-white dark:bg-zinc-955">
-        <div className="mx-auto max-w-7xl px-6">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-12">
-            <div>
-              <h2 className="text-3xl font-extrabold text-zinc-900 dark:text-white">
-                Work at Top Companies
-              </h2>
-              <p className="text-sm text-zinc-505 dark:text-zinc-400 mt-2">
-                Discover workplace cultures, employee reviews, and open tech roles.
-              </p>
-            </div>
-            <Link href="/companies" className="mt-4 sm:mt-0">
-              <Button variant="outline" size="sm">
-                Browse Companies →
-              </Button>
-            </Link>
-          </div>
 
-          {featuredCompanies.length === 0 ? (
-            <div className="py-12 text-center text-zinc-400">
-              No company profiles registered yet.
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {featuredCompanies.map((company) => (
-                <CompanyCard key={company._id.toString()} company={JSON.parse(JSON.stringify(company))} />
-              ))}
-            </div>
-          )}
-        </div>
-      </section>
 
       <section className="py-20 bg-zinc-50/50 dark:bg-zinc-900/10">
         <div className="mx-auto max-w-7xl px-6">
@@ -188,31 +153,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="py-20 bg-white dark:bg-zinc-955">
-        <div className="mx-auto max-w-5xl px-6">
-          <div className="p-8 md:p-16 rounded-3xl bg-gradient-to-r from-violet-600 to-indigo-600 text-white text-center flex flex-col items-center gap-6 shadow-xl shadow-indigo-200 dark:shadow-none relative overflow-hidden">
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,rgba(99,102,241,0.2),transparent_60%)] pointer-events-none" />
-            <h2 className="text-3xl sm:text-4xl font-extrabold max-w-xl">
-              Ready to Explore Your Next Career Milestone?
-            </h2>
-            <p className="text-sm text-indigo-100 max-w-lg leading-relaxed">
-              Create an account now to start tracking applications, saving your favorite postings, and building your custom resume profile.
-            </p>
-            <div className="flex gap-3 mt-4">
-              <Link href="/register">
-                <Button variant="secondary" className="font-bold">
-                  Create Free Account
-                </Button>
-              </Link>
-              <Link href="/jobs">
-                <Button className="border border-white/20 bg-white/10 hover:bg-white/20 text-white shadow-none">
-                  Search All Jobs
-                </Button>
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
+
     </div>
   );
 }
