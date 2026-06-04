@@ -28,7 +28,7 @@ export default function CompanyCard({ company }: CompanyCardProps) {
           <h3 className="text-base font-bold text-zinc-900 dark:text-white group-hover:text-indigo-650 dark:group-hover:text-indigo-400 transition-colors truncate">
             {company.name}
           </h3>
-          <p className="text-xs font-semibold text-indigo-650 dark:text-indigo-450 mt-0.5 uppercase tracking-wider">
+          <p className="text-xs font-semibold text-zinc-900 dark:text-zinc-550 mt-0.5 uppercase tracking-wider">
             {company.industry || "General Industry"}
           </p>
         </div>
