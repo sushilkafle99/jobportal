@@ -96,10 +96,10 @@ export default function JobCard({
         <div className="flex-1 min-w-0">
           <div className="flex items-start justify-between gap-2">
             <div>
-              <h3 className="text-base font-bold text-zinc-900 dark:text-zinc-550 group-hover:text-indigo-650 dark:group-hover:text-indigo-400 transition-colors truncate">
+              <h3 className="text-base font-bold text-zinc-900 dark:text-white group-hover:text-indigo-650 dark:group-hover:text-indigo-400 transition-colors truncate">
                 {job.title}
               </h3>
-              <p className="text-sm text-zinc-500 font-medium truncate mt-0.5">
+              <p className="text-sm text-zinc-500 dark:text-white font-medium truncate mt-0.5">
                 {job.companyId?.name || "Hiring Company"}
               </p>
             </div>
