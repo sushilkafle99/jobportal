@@ -2,7 +2,13 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { MapPin, Briefcase, DollarSign, Calendar, Bookmark } from "lucide-react";
+import {
+  MapPin,
+  Briefcase,
+  DollarSign,
+  Calendar,
+  Bookmark,
+} from "lucide-react";
 import Badge from "./Badge";
 import Avatar from "./Avatar";
 
@@ -58,7 +64,9 @@ export default function JobCard({
         setIsSaved(newState);
       } else {
         const method = newState ? "POST" : "DELETE";
-        const url = newState ? "/api/jobs/save" : `/api/jobs/save?jobId=${job._id}`;
+        const url = newState
+          ? "/api/jobs/save"
+          : `/api/jobs/save?jobId=${job._id}`;
         const res = await fetch(url, {
           method,
           headers: { "Content-Type": "application/json" },
@@ -104,7 +112,7 @@ export default function JobCard({
               </p>
             </div>
 
-            {!hideBookmark && onBookmarkToggle && (
+            {!hideBookmark && (
               <button
                 onClick={handleBookmark}
                 disabled={isLoading}
@@ -114,7 +122,9 @@ export default function JobCard({
                     : "bg-zinc-50 border-zinc-200 text-zinc-400 hover:text-zinc-650 hover:bg-zinc-100 dark:bg-zinc-950 dark:border-zinc-800 dark:hover:bg-zinc-850"
                 }`}
               >
-                <Bookmark className={`w-4 h-4 ${isSaved ? "fill-current" : ""}`} />
+                <Bookmark
+                  className={`w-4 h-4 ${isSaved ? "fill-current" : ""}`}
+                />
               </button>
             )}
           </div>
@@ -131,7 +141,8 @@ export default function JobCard({
             <div className="flex items-center gap-1">
               <DollarSign className="w-3.5 h-3.5" />
               <span>
-                ${job.salaryMin.toLocaleString()} - ${job.salaryMax.toLocaleString()}
+                ${job.salaryMin.toLocaleString()} - $
+                {job.salaryMax.toLocaleString()}
               </span>
             </div>
             <div className="flex items-center gap-1 ml-auto">
